@@ -10,8 +10,7 @@
     "type": "git",
     "url": "https://github.com/fbsamples/messenger-platform-samples.git"
   },
-  "author": "Facebook",
-  "license": "ISC",
+  
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
