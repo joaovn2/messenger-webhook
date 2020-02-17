@@ -207,7 +207,8 @@ function showTypingIndicatorToUser(senderId, isTyping) {
 }
 
 app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port')).catch(err =>{
-  throw new Error(err);
-});
+  if (error){
+  console.log('sending Typing indicator to user ' + error);
+  }else 
+  console.log('Node app is running on port', app.get('port'));
 });
