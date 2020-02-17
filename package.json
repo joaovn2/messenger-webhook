@@ -1,6 +1,6 @@
 {
   "name": "messenger-webhook",
- "version": "1.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,5 +17,4 @@
     "express": "^4.17.1",
     "request": "^2.72.0"
   }
-  
 }
