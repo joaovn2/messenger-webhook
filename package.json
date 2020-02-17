@@ -1,7 +1,6 @@
 {
   "name": "secure-fjord-16878",
   "version": "9.0.6",
-  "description": "",
   "engines": {
     "node": "13.8.0",
     "npm": "6.13.6"
@@ -24,12 +23,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git+https://github.com/heroku/node-js-getting-started.git"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heroku/node-js-getting-started/issues"
+  },
+  "homepage": "https://github.com/heroku/node-js-getting-started#readme",
+  "author": "",
+  "description": ""
 }
