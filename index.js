@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 
 
 
-app.get('https://secure-fjord-16878.herokuapp.com/webhook', function(request, response) {
+app.get('/webhook', function(request, response) {
   if (request.query['hub.verify_token'] == FACEBOOK_VERIFY_TOKEN) {
     response.send(request.query['hub.challenge'])
   }
