@@ -26,9 +26,9 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('*', function(req, res)
 
-app.get('/webhook/', function(request, response) {
+
+app.get('*', function(request, response) {
   if (request.query['hub.verify_token'] == FACEBOOK_VERIFY_TOKEN) {
     response.send(request.query['hub.challenge'])
   }
