@@ -174,7 +174,7 @@ function callSendAPI(sender_psid, response) {
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "qs": { "access_token": "EAAMLsUAFrJABAKX3TYbwPIIr3o3B32nablVxSlY9OqlMFKkcd1hFZBI7h4YJStjMi5RgCXkQQcpfGwpLzZCR0EyNaA1XYpBq36DypjolMrwhPHOuQ8oL0rhRZAFBFSMA7tJFvi6aedwP52i8dUnYRMqzy03EMg5gaXsdJamAwZDZD" },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
