@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var request = require('request');
+var request = require('node-fetch');
 var path = require('path');
 const LastFM = require('last-fm')
 const lastfm = new LastFM('cd928d90e6fc540102f0d88289b17e85', {
