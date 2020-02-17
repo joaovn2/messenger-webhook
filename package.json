@@ -1,6 +1,6 @@
 {
   "name": "secure-fjord-16878",
-  "version": "0.2.6",
+  "version": "1.0.0",
   "description": "A sample Node.js app using Express 4",
   "engines": {
     "node": "13.8.0",
