@@ -30,13 +30,17 @@ app.set('view engine', 'ejs');
 
 app.get('/webhook', function(request, response) {
   if (request.query['hub.verify_token'] == FACEBOOK_VERIFY_TOKEN) {
-    response.send(request.query['hub.challenge'])
+    response.send(request.query['hub.challenge']).catch(err =>{
+  throw new Error(err);
+});
   }
   res.send('Error, wrong token')
 });
 
 app.get('/privacy', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views', 'pages', 'privacy.html'));
+  res.sendFile(path.join(__dirname, 'views', 'pages', 'privacy.html')).catch(err =>{
+  throw new Error(err);
+});
 });
 
 app.post('/webhook', function(req, res) {
