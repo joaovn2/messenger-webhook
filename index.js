@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var path = require('path');
 const LastFM = require('last-fm')
-const lastfm = new LastFM('////YOUR LAST_FM API KEY/////', {
-  userAgent: 'DemoApp/1.0.0 (////DOMAIN NAME OF THE SERVER////)'
+const lastfm = new LastFM('cd928d90e6fc540102f0d88289b17e85', {
+  userAgent: 'DemoApp/1.0.0 (https://secure-fjord-16878.herokuapp.com/)'
 })
 
 app.use(bodyParser.json());

@@ -11,15 +11,14 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.19.0",
     "ejs": "2.5.6",
     "express": "4.15.2",
-    "last-fm": "^5.1.2",
-    "path": "^0.12.7",
-    "request": "^2.83.0"
+    "last-fm": "^5.2.2",
+    "path": "^0.12.7"
   },
   "devDependencies": {
-    "request": "^2.81.0",
+    "request": "^2.88.2",
     "tape": "^4.7.0"
   },
   "repository": {
