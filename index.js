@@ -206,7 +206,7 @@ function showTypingIndicatorToUser(senderId, isTyping) {
 
 }
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function(error) {
   if (error){
   console.log('sending Typing indicator to user ' + error);
   }else 
