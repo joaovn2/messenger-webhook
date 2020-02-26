@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/secure-fjord-16878.git"
+    "url": "git@github.com:joaovn2/messenger-webhook/"
   },
   "author": "Facebook",
   "license": "ISC",
