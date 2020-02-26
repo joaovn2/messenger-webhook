@@ -5,7 +5,7 @@ var request = require('node-fetch');
 var path = require('path');
 const LastFM = require('last-fm')
 const lastfm = new LastFM('cd928d90e6fc540102f0d88289b17e85', {
-  userAgent: 'DemoApp/1.0.0 (https://git.heroku.com/secure-fjord-16878.git)'
+  userAgent: 'DemoApp/1.0.0 (https://secure-fjord-16878.herokuapp.com/)'
 })
 
 app.use(bodyParser.json());
