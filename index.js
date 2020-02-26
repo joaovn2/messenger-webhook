@@ -1,239 +1,184 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var request = require('node-fetch');
-var path = require('path');
-const LastFM = require('last-fm')
-const lastfm = new LastFM('cd928d90e6fc540102f0d88289b17e85', {
-  userAgent: 'DemoApp/1.0.0 (https://secure-fjord-16878.herokuapp.com/)'
-})
+/**
+ * Copyright 2017-present, Facebook, Inc. All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * Messenger Platform Quick Start Tutorial
+ *
+ * This is the completed code for the Messenger Platform quick start tutorial
+ *
+ * https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start/
+ *
+ * To run this code, you must do the following:
+ *
+ * 1. Deploy this code to a server running Node.js
+ * 2. Run `npm install`
+ * 3. Update the VERIFY_TOKEN
+ * 4. Add your PAGE_ACCESS_TOKEN to your environment vars
+ *
+ */
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+'use strict';
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+// Imports dependencies and set up http server
+const 
+  request = require('request'),
+  express = require('express'),
+  body_parser = require('body-parser'),
+  app = express().use(body_parser.json()); // creates express http server
 
-let FACEBOOK_VERIFY_TOKEN = "zxcasdqwe";
-let FACEBOOK_PAGE_ACCESS_TOKEN = "EAAMLsUAFrJABAIdYocZBM6LTJCFZA8zIUEVZCLJnrhT3RGQtIIs5ZBOGc7HJPRZBtxVmCxCoTp5BlfBfEl0t7FaCOBpVJYJeFu3Lth2uFxtlMPtEyd34W7roGjGxEbqZC8Xtn9bXq4uykOIWUcpspcget8vDshEoBe3saZCsWdLtgZDZD";
-let FACEBOOK_SEND_MESSAGE_URL = 'https://graph.facebook.com/v2.6/me/messages?access_token=' + FACEBOOK_PAGE_ACCESS_TOKEN;
-let LAST_FM_URL = 'https://www.last.fm/music/';
+// Sets server port and logs message on success
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
-app.set('port', (process.env.PORT || 5000));
+// Accepts POST requests at /webhook endpoint
+app.post('/webhook', (req, res) => {  
 
-app.use(express.static(__dirname + '/public'));
+  // Parse the request body from the POST
+  let body = req.body;
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+  // Check the webhook event is from a Page subscription
+  if (body.object === 'page') {
+
+    body.entry.forEach(function(entry) {
+
+      // Gets the body of the webhook event
+      let webhook_event = entry.messaging[0];
+      console.log(webhook_event);
 
 
+      // Get the sender PSID
+      let sender_psid = webhook_event.sender.id;
+      console.log('Sender ID: ' + sender_psid);
 
-app.get('/webhook', function(request, response) {
-  if (request.query['hub.verify_token'] == FACEBOOK_VERIFY_TOKEN) {
-    response.send(request.query['hub.challenge']).catch(err =>{
-  throw new Error(err);
-});
-  }
-  res.send('Error, wrong token')
-});
-
-app.get('/privacy', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views', 'pages', 'privacy.html')).catch(err =>{
-  throw new Error(err);
-});
-});
-
-app.post('/webhook', function(req, res) {
-  if (req.body.object === 'page') {
-    if (req.body.entry) {
-      req.body.entry.forEach(function(entry) {
-        if (entry.messaging) {
-          entry.messaging.forEach(function(messagingObject) {
-            var senderId = messagingObject.sender.id;
-            if (messagingObject.message) {
-              var musicName = messagingObject.message.text;
-              fetchData(senderId, musicName);
-            } else if (messagingObject.postback) {
-              console.log('Recieved postback');
-
-            }
-          });
-        } else {
-          console.log('no message key found');
-        }
-      });
-    } else {
-      console.log('no entry key found');
-    }
-  } else {
-
-  }
-  res.status(200).send();
-});
-
-function sendMessageToUser(senderId, message) {
-  request({
-    url: FACEBOOK_SEND_MESSAGE_URL,
-    method: 'POST',
-    json: {
-      "recipient": {
-        "id": senderId
-      },
-      "message": {
-        "text": message
+      // Check if the event is a message or postback and
+      // pass the event to the appropriate handler function
+      if (webhook_event.message) {
+        handleMessage(sender_psid, webhook_event.message);        
+      } else if (webhook_event.postback) {
+        
+        handlePostback(sender_psid, webhook_event.postback);
       }
-    }
+      
+    });
+    // Return a '200 OK' response to all events
+    res.status(200).send('EVENT_RECEIVED');
 
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending UIMESSAGE to User ' + JSON.stringify(error));
-    } else if (response.body.error) {
-      console.log('Error sending UImessage' + JSON.stringify(response.body.error));
-    }
-  });
-}
-
-function fetchData(senderId, musicName) {
-  showTypingIndicatorToUser(senderId, true);
-  var opts = {
-    q: musicName
-  };
-  lastfm.trackSearch(opts, (err, data) => {
-    showTypingIndicatorToUser(senderId, false);
-    if (err) {
-      console.error(err)
-    } else {
-      fetchingData(senderId, data);
-    }
-  });
-}
-
-function fetchingData(senderId, body) {
-  var elements = [];
-  if (body.result) {
-    if (body.result.length > 0) {
-      console.log('under result');
-      var lengthOfResult = body.result.length > 10 ? 10 : body.result.length;
-      for (i = 0; i < lengthOfResult; i++) {
-        elements.push(formingElements(body.result[i]));
-      }
-      sendTemplateResponse(senderId, elements);
-    } else {
-      sendMessageToUser(senderId, 'Couldn\'t find info');
-    }
-
-  }
-}
-
-function formingElements(result) {
-  var musicName = result.name;
-  var artistName = result.artistName;
-  var posterPath;
-
-  if (result.images.length == 0 || result.images == undefined) {
-    posterPath = 'https://images.pexels.com/photos/3104/black-and-white-music-headphones-life.jpg?h=350&auto=compress&cs=tinysrgb';
   } else {
-    posterPath = result.images[2];
+    // Return a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
   }
 
-  var musicNameArray = musicName.split(' ');
-  var artistNameArray = artistName.split(' ');
-  var musicNameUrl = musicNameArray.join('+');
-  var artistNameUrl = artistNameArray.join('+');
+});
 
-  return {
-    title: musicName,
-    subtitle: artistName,
-    image_url: posterPath,
-    buttons: [{
-      "type": "web_url",
-      "url": LAST_FM_URL + artistNameUrl + '/_/' + musicNameUrl,
-      "title": "More Details"
-    }]
+// Accepts GET requests at the /webhook endpoint
+app.get('/webhook', (req, res) => {
+  
+  /** UPDATE YOUR VERIFY TOKEN **/
+  const VERIFY_TOKEN = "<YOUR VERIFY TOKEN>";
+  
+  // Parse params from the webhook verification request
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];
+    
+  // Check if a token and mode were sent
+  if (mode && token) {
+  
+    // Check the mode and token sent are correct
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      
+      // Respond with 200 OK and challenge token from the request
+      console.log('WEBHOOK_VERIFIED');
+      res.status(200).send(challenge);
+    
+    } else {
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);      
+    }
   }
-}
+});
 
-function sendTemplateResponse(senderId, elementList) {
-  request({
-    url: FACEBOOK_SEND_MESSAGE_URL,
-    method: 'POST',
-    json: {
-      recipient: {
-        id: senderId
-      },
-      message: {
-        attachment: {
-          type: 'template',
-          payload: {
-            template_type: 'generic',
-            elements: elementList
-
-
-          }
+function handleMessage(sender_psid, received_message) {
+  let response;
+  
+  // Checks if the message contains text
+  if (received_message.text) {    
+    // Create the payload for a basic text message, which
+    // will be added to the body of our request to the Send API
+    response = {
+      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+    }
+  } else if (received_message.attachments) {
+    // Get the URL of the message attachment
+    let attachment_url = received_message.attachments[0].payload.url;
+    response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
         }
       }
-
     }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending UIMESSAGE to User ' + error.toString());
-    } else if (response.body.error) {
-      console.log('Error sending UImessage under sendTemplateResponse' + JSON.stringify(response.body.error));
-    }
-    //ignore
-  });
+  } 
+  
+  // Send the response message
+  callSendAPI(sender_psid, response);    
 }
 
-function showTypingIndicatorToUser(senderId, isTyping) {
-  var senderAction = isTyping ? 'typing_on' : 'typing_off';
+function handlePostback(sender_psid, received_postback) {
+  console.log('ok')
+   let response;
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { "text": "Thanks!" }
+  } else if (payload === 'no') {
+    response = { "text": "Oops, try sending another image." }
+  }
+  // Send the message to acknowledge the postback
+  callSendAPI(sender_psid, response);
+}
+
+function callSendAPI(sender_psid, response) {
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
   request({
-    url: FACEBOOK_SEND_MESSAGE_URL,
-    method: 'POST',
-    json: {
-      recipient: {
-        id: senderId
-      },
-      sender_action: senderAction
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
     }
-
-  }, function(error, response, body) {
-    if (error) {
-      console.log('sending Typing indicator to user ' + error);
-    } else if (response.body.error) {
-      console.log('Error sending typing indicator' + response.body.error);
-    }
-  });
-
+  }); 
 }
-
-const somePromise = new Promise(function(resolve, reject) {
-  resolve('Success!');
-});
-
-somePromise.then(function(value) {
-  console.log(value);
-  // expected output: "Success!"
-});
-process.on('unhandledRejection', (reason, promise) => {
-  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
-  // Application specific logging, throwing an error, or other logic here
-});
-
-somePromise.then((res) => {
-  return reportToUser(JSON.pasre(res)); // Note the typo (`pasre`)
-}); // No `.catch()` or `.then()`
-
-function SomeResource() {
-  // Initially set the loaded status to a rejected promise
-  this.loaded = Promise.reject(new Error('Resource not yet loaded!'));
-}
-
-const resource = new SomeResource();
-// no .catch or .then on resource.loaded for at least a turn
-
-app.listen(app.get('port'), function(error) {
-  if (error){
-  console.log('sending Typing indicator to user ' + error);
-  }else 
-  console.log('Node app is running on port', app.get('port'));
-});

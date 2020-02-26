@@ -1,42 +1,23 @@
 {
-  "name": "secure-fjord-16878",
-  "version": "9.0.6",
-  "engines": {
-    "node": "13.8.0",
-    "npm": "6.13.6"
-  },
-  "main": "index.js",
+  "name": "messenger-quick-start",
+  "version": "1.0.0",
+  "description": "An example webhook for Facebook Messenger quick start tutorial.",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "docker": "^1.0.0",
-    "ejs": "2.5.6",
-    "express": "^4.17.1",
-    "json": "^9.0.6",
-    "last-fm": "^5.2.2",
-    "node-fetch": "^2.6.0",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "request": "^2.88.2",
-    "tape": "^4.13.0"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heroku/node-js-getting-started.git"
+    "url": "https://github.com/fbsamples/messenger-platform-samples.git"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/heroku/node-js-getting-started/issues"
+  "author": "Facebook",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "request": "^2.72.0"
   },
-  "homepage": "https://github.com/heroku/node-js-getting-started#readme",
-  "author": "",
-  "description": ""
+  "engines": {
+    "node": "~4.1.2"
+  }
 }
