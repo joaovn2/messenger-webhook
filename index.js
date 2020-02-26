@@ -205,6 +205,22 @@ function showTypingIndicatorToUser(senderId, isTyping) {
   });
 
 }
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
+});
+
+somePromise.then((res) => {
+  return reportToUser(JSON.pasre(res)); // Note the typo (`pasre`)
+}); // No `.catch()` or `.then()`
+
+function SomeResource() {
+  // Initially set the loaded status to a rejected promise
+  this.loaded = Promise.reject(new Error('Resource not yet loaded!'));
+}
+
+const resource = new SomeResource();
+// no .catch or .then on resource.loaded for at least a turn
 
 app.listen(app.get('port'), function(error) {
   if (error){
