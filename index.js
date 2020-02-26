@@ -32,7 +32,7 @@ const
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 // Accepts POST requests at /webhook endpoint
-app.post('/webhook', (req, res) => {  
+app.post('https://secure-fjord-16878.herokuapp.com/webhook', (req, res) => {  
 
   // Parse the request body from the POST
   let body = req.body;
