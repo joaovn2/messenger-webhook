@@ -72,10 +72,10 @@ app.post('/webhook', (req, res) => {
 });
 
 // Accepts GET requests at the /webhook endpoint
-app.get('/webhook', (req, res) => {
+app.get('https://secure-fjord-16878.herokuapp.com/webhook', (req, res) => {
   
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "<YOUR VERIFY TOKEN>";
+  const VERIFY_TOKEN = "zxcasdqwe";
   
   // Parse params from the webhook verification request
   let mode = req.query['hub.mode'];
