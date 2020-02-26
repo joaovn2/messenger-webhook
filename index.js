@@ -205,6 +205,15 @@ function showTypingIndicatorToUser(senderId, isTyping) {
   });
 
 }
+
+const somePromise = new Promise(function(resolve, reject) {
+  resolve('Success!');
+});
+
+somePromise.then(function(value) {
+  console.log(value);
+  // expected output: "Success!"
+});
 process.on('unhandledRejection', (reason, promise) => {
   console.log('Unhandled Rejection at:', promise, 'reason:', reason);
   // Application specific logging, throwing an error, or other logic here
