@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "'https://git.heroku.com/secure-fjord-16878.git"
+    "url": "https://git.heroku.com/secure-fjord-16878.git"
   },
   "author": "Facebook",
   "license": "ISC",
