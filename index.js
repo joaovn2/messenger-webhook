@@ -32,7 +32,7 @@ const
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 // Accepts POST requests at /webhook endpoint
-app.post('https://secure-fjord-16878.herokuapp.com/webhook', (req, res) => {  
+app.post('/webhook', (req, res) => {  
 
   // Parse the request body from the POST
   let body = req.body;
@@ -72,7 +72,7 @@ app.post('https://secure-fjord-16878.herokuapp.com/webhook', (req, res) => {
 });
 
 // Accepts GET requests at the /webhook endpoint
-app.get('https://secure-fjord-16878.herokuapp.com/webhook', (req, res) => {
+app.get('/webhook', (req, res) => {
   
   /** UPDATE YOUR VERIFY TOKEN **/
   const VERIFY_TOKEN = "zxcasdqwe";
