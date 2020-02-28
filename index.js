@@ -118,7 +118,7 @@ function handleMessage(sender_psid, received_message) {
     url:"http://192.168.10.254/rest/v1/vlans",
     "sessionId":id,   
    }, function(error,response,body){
-    result = console.log(body);  
+    result = body;  
    });
    });
     response = {
