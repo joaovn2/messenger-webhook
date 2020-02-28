@@ -106,8 +106,22 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
+    request.post({
+    url: "http://192.168.10.254/rest/v1/login-sessions",
+    "userName":"admin",
+    "password":"W@ster123"
+   }, function(error,response,body){
+    var jey = JSON.parse(body);
+    var id = jey.cookie;    
+    request.get({
+    url:"http://192.168.10.254/rest/v1/vlans",
+    "sessionId":id,   
+   }, function(error,response,body){
+    console.log(body);  
+   });
+   });
     response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+      "text": `${body}`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
