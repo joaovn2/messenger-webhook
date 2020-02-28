@@ -122,7 +122,7 @@ function handleMessage(sender_psid, received_message) {
    });
    });
     response = {
-      "text": `${result}`
+      "text": result
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
