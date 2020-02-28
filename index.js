@@ -102,7 +102,7 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  var result;
+  var result = "";
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -122,7 +122,7 @@ function handleMessage(sender_psid, received_message) {
    });
    });
     response = {
-      "text": result
+      "text": "${result}"
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
