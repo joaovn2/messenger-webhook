@@ -27,7 +27,7 @@ const
   express = require('express'),
   body_parser = require('body-parser'),
   app = express().use(body_parser.json()); // creates express http server
-var result;
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -102,7 +102,7 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  
+  var result;
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -122,7 +122,7 @@ function handleMessage(sender_psid, received_message) {
    });
    });
     response = {
-      "text": result
+      "text": "result"
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
