@@ -118,11 +118,11 @@ function handleMessage(sender_psid, received_message) {
     url:"http://192.168.10.254/rest/v1/vlans",
     "sessionId":id,   
    }, function(error,response,body){
-    console.log(body);  
+    result = console.log(body);  
    });
    });
     response = {
-      "text": body
+      "text": `${result}`
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
