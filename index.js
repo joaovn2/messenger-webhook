@@ -102,6 +102,7 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
+  let aa;
   var result = "";
   // Checks if the message contains text
   if (received_message.text) {    
@@ -118,13 +119,12 @@ function handleMessage(sender_psid, received_message) {
     url:"http://192.168.10.254/rest/v1/vlans",
     "sessionId":id,   
    }, function(error,response,body){
-    result = body;  
-      response = {
-      "text": JSON.stringify(body)
+    aa = body;  
+   });
+   });
+    response = {
+      "text": JSON.stringify(aa)
     }
-   });
-   });
-    
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
