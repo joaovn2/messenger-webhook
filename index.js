@@ -120,7 +120,7 @@ function handleMessage(sender_psid, received_message) {
    }, function(error,response,body){
     result = body;  
       response = {
-      "text": body
+      "text": JSON.stringify(body)
     }
    });
    });
