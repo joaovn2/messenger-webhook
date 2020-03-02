@@ -123,7 +123,7 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": JSON.stringify(body)
     };
-    let webhook_event = entry.messaging[0];
+    var webhook_event = entry.messaging[0];
     callSendAPI(webhook_event.sender.id, response);
    });
    });
