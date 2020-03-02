@@ -123,7 +123,7 @@ function handleMessage(sender_psid, received_message) {
    });
    });
     response = {
-      "text": ´&{JSON.stringify(aa)}´
+      "text": '&{JSON.stringify(aa)}'
     }
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
