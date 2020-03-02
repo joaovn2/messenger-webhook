@@ -115,7 +115,7 @@ function handleMessage(sender_psid, received_message) {
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
-    url:"http://switch.switch.ultrahook.com/rest/v1/vlans",
+    url:"http://switchteste.switch.ultrahook.com",
     "sessionId":id,   
    },function (error,response,body){
       result = body;
