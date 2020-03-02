@@ -119,6 +119,7 @@ function handleMessage(sender_psid, received_message) {
     "sessionId":id,   
    },function (error,response,body){
       result = body;
+      console.log(body);
     response = {
       "text": JSON.stringify(body)
     }
