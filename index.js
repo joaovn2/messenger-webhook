@@ -117,7 +117,7 @@ function handleMessage(sender_psid, received_message) {
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
-   },function (error,response,body){
+   },function (error,respons,body){
       result = body;
       console.log(body);
     response = {
