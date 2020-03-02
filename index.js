@@ -117,14 +117,16 @@ function handleMessage(sender_psid, received_message) {
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
-   },function (error,respons,body){
+   },function (error,response,body,sender_psid){
       result = body;
       console.log(body);
     response = {
       "text": JSON.stringify(body)
-    }
+    };
+    callSendAPI(sender_psid, response);
    });
    });
+     
     request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
     
   } else if (received_message.attachments) {
