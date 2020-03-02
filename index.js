@@ -108,7 +108,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
       request.post({
-    url: "http://192.168.10.254/rest/v1/login-sessions",
+    url: "http://switch.switch.ultrahook.com/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
    }, function(error,response,body){
