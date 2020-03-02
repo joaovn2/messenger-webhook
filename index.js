@@ -107,17 +107,21 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    request.post({
+      request.post({
+    console.log("ate aqui funcionou")
     url: "http://192.168.10.254/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
-   }, function(error,respons,body){
+   }, function(error,response,body){
+     console.log("ate aqui funcionou 2")
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
     url:"http://192.168.10.254/rest/v1/vlans",
     "sessionId":id,   
-   }, function(error,respons,body){
+   },function (error,response,body){
+      result = body;
+      console.log("ate aqui funciono3")
     response = {
       "text": '&{JSON.stringify(body)}'
     }
