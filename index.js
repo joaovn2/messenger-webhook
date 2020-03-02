@@ -26,9 +26,6 @@ const
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
-  body_parser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-}),
   app = express().use(body_parser.json()); // creates express http server
 
 
