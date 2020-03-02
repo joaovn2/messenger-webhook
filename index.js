@@ -108,14 +108,14 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
       request.post({
-    url: "http://switch.switch.ultrahook.com",
+    url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
    }, function(error,response,body){
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
-    url:"http://switchteste.switch.ultrahook.com",
+    url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
    },function (error,response,body){
       result = body;
