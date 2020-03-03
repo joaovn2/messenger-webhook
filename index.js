@@ -113,7 +113,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     
-    function(error,response,body,result){
+    function teste(error,response,body,result){
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
