@@ -127,7 +127,7 @@ function handleMessage(sender_psid, received_message,result) {
     return response;
    });
    });
-     callSendAPI(sender_psid, teste);
+     callSendAPI(sender_psid, teste());
     request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
     
   } else if (received_message.attachments) {
