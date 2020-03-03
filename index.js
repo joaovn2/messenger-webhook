@@ -100,7 +100,7 @@ app.get('/webhook', (req, res) => {
   }
 });
 
-function handleMessage(sender_psid, received_message) {
+function handleMessage(sender_psid, received_message,result) {
   let response;
   var result = "";
   // Checks if the message contains text
@@ -111,22 +111,23 @@ function handleMessage(sender_psid, received_message) {
     url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
-   }, function(error,response,body,sender_psid){
+   }, function(error,response,body){
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
-   },function (error,response,body,sender_psid){
+   },function (error,response,body,teste){
       result = body;
       console.log(body);
     response = {
       "text": JSON.stringify(body)
     };
-    callSendAPI(body.entry.messaging[0].sender.id, response);
+    teste(response);
+    return
    });
    });
-     
+     callSendAPI(sender_psid, teste);
     request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
     
   } else if (received_message.attachments) {
