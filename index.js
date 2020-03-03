@@ -123,11 +123,11 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": JSON.stringify(body)
     };
-    result = response;
+    global.result = response;
    });
    });
 
-     callSendAPI(sender_psid, result);
+     callSendAPI(sender_psid, global.result);
     request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
     
   } else if (received_message.attachments) {
