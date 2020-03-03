@@ -102,7 +102,7 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message,result) {
   let response;
-  var result = "";
+  global.result;
   // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -111,27 +111,23 @@ function handleMessage(sender_psid, received_message,result) {
     url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
-   }, function(error,response,body){
+   }, function(error,response,body,result){
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
-   },function teste(error,response,body,teste){
+   },function teste(error,response,body,result){
       result = body;
       console.log(body);
     response = {
       "text": JSON.stringify(body)
     };
-    const asynchronousFunction = async () => {
-    const response = await body
-    return response
-    };
-    
+    result = response;
    });
    });
-    const resultado = asynchronousFunction()
-     callSendAPI(sender_psid, resultado);
+
+     callSendAPI(sender_psid, result);
     request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
     
   } else if (received_message.attachments) {
