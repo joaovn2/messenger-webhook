@@ -123,7 +123,7 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": JSON.stringify(body)
     };
-    callSendAPI(entry.messaging[0].sender.id, response);
+    callSendAPI(body.entry.messaging[0].sender.id, response);
    });
    });
      
