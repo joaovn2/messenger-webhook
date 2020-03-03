@@ -107,6 +107,7 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
+    request.delete({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
       request.post({
     url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
