@@ -103,32 +103,30 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   let response;
   global.result;
-  request.post({
-    url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
-    "userName":"admin",
-    "password":"W@ster123"
-   });
-  // Checks if the message contains text
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    
-    function teste(error,response,body,result){
+      request.post({
+    url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
+    "userName":"admin",
+    "password":"W@ster123"
+   }, function(error,response,body,result){
     var jey = JSON.parse(body);
     var id = jey.cookie;    
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
-   },function teste(error,response,body,result,id){
+   },function teste(error,response,body,result){
       result = body;
       console.log(body);
     response = {
       "text": JSON.stringify(body)
     };
-    
     global.result = response;
-      });
-   };
+   },function teste(error,response,body,result){
+   request.del({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
+   });
+   });
 
     callSendAPI(sender_psid, global.result);
     
