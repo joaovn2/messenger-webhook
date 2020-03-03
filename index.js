@@ -127,7 +127,9 @@ function handleMessage(sender_psid, received_message) {
     
     global.result = response;
    },function teste(error,response,body,result){
-   request.del({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
+   request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
+           method: 'DELETE'
+           });
    });
    });
 
