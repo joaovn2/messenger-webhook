@@ -113,7 +113,8 @@ function handleMessage(sender_psid, received_message) {
     "password":"W@ster123"
    }, function(error,response,body,result){
     var jey = JSON.parse(body);
-    var id = jey.cookie;    
+    var id = jey.cookie; 
+    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","cookie":id });
     request.get({
     url:"http://075ad829.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
@@ -124,7 +125,7 @@ function handleMessage(sender_psid, received_message) {
       "text": JSON.stringify(body)
     };
     global.result = response;
-    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","cookie":id });
+    
    });
    });
 
