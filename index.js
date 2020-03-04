@@ -130,8 +130,8 @@ function handleMessage(sender_psid, received_message) {
 
     callSendAPI(sender_psid, global.result);
     
-    if (callSendAPI(sender_psid, global.result);){
-        app.del(url: "http://075ad829.ngrok.io/rest/v1/login-sessions")
+    if (callSendAPI(sender_psid, global.result)){
+        app.del(url: "http://075ad829.ngrok.io/rest/v1/login-sessions");
     }
     
     
