@@ -25,6 +25,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const 
   request = require('request'),
   express = require('express'),
+  fetch = require('node-fetch'),
   body_parser = require('body-parser'),
   app = express().use(body_parser.json()); // creates express http server
 
@@ -131,9 +132,8 @@ function handleMessage(sender_psid, received_message) {
     callSendAPI(sender_psid, global.result);
     
     if (callSendAPI(sender_psid, global.result)){
-        app.del("http://075ad829.ngrok.io/rest/v1/login-sessions", function (req, res) {
-  res.send('deletando');
-  });
+        fetch.del("http://075ad829.ngrok.io/rest/v1/login-sessions");
+  
     }
     
     
