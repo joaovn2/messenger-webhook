@@ -123,10 +123,9 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": JSON.stringify(body)
     };
-     fetch("http://075ad829.ngrok.io/rest/v1/login-sessions",{ method: 'DELETE', "sessionId":id});
     global.result = response;
    },function teste(error,response,body,result){
-   request.del({url: "http://075ad829.ngrok.io/rest/v1/login-sessions"});
+   request.del({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","sessionId":id });
    });
    });
 
