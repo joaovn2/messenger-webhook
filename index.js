@@ -107,7 +107,6 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
-    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","cookie":id });
     request.post({
     url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
@@ -126,14 +125,11 @@ function handleMessage(sender_psid, received_message) {
     };
     global.result = response;
     
-    
    });
    });
 
-    callSendAPI(sender_psid, global.result);
-    
-    
-    
+    callSendAPI(sender_psid, global.result);  
+    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","cookie":id });
     
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
