@@ -126,6 +126,7 @@ function handleMessage(sender_psid, received_message) {
     global.result = response;
     
    });
+    });
 
     callSendAPI(sender_psid, global.result);  
     request.del({
