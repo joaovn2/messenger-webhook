@@ -131,7 +131,9 @@ function handleMessage(sender_psid, received_message) {
     callSendAPI(sender_psid, global.result);
     
     if (callSendAPI(sender_psid, global.result)){
-        app.del(url: "http://075ad829.ngrok.io/rest/v1/login-sessions");
+        app.del("http://075ad829.ngrok.io/rest/v1/login-sessions", function (req, res) {
+  res.send('deletando');
+  });
     }
     
     
