@@ -108,14 +108,14 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     request.post({
-    url: "http://075ad829.ngrok.io/rest/v1/login-sessions",
+    url: "http://754f5654.ngrok.io/rest/v1/login-sessions",
     "userName":"admin",
     "password":"W@ster123"
    }, function(error,response,body,result){
     var jey = JSON.parse(body);
     var id = jey.cookie; 
     request.get({
-    url:"http://075ad829.ngrok.io/rest/v1/vlans",
+    url:"http://754f5654.ngrok.io/rest/v1/vlans",
     "sessionId":id,   
    },function teste(error,response,body,result,id){
       result = body;
@@ -128,6 +128,13 @@ function handleMessage(sender_psid, received_message) {
    });
 
     callSendAPI(sender_psid, global.result);  
+    request({
+    url:"http://754f5654.ngrok.io/rest/v1/vlans",
+    method = "DELETE",
+    "sessionId":id,   
+   },function (error,response,body,result,id){
+  console.log(error)
+    });
     
     
   } else if (received_message.attachments) {
