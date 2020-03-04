@@ -134,7 +134,7 @@ function handleMessage(sender_psid, received_message) {
    },function (error,response,body,result,id){
   console.log(error)
     });
-    
+    }
     
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
