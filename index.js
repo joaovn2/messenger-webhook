@@ -124,7 +124,7 @@ function handleMessage(sender_psid, received_message) {
       "text": JSON.stringify(body)
     };
     global.result = response;
-    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","sessionId":id });
+    request({url: "http://075ad829.ngrok.io/rest/v1/login-sessions","method":"DELETE","cookie":id });
    });
    });
 
