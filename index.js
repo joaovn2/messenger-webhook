@@ -117,8 +117,6 @@ function handleMessage(sender_psid, received_message) {
       }
     
    }, function(error,response,body,result){
-    var jey = JSON.parse(body);
-    var id = jey.cookie; 
     response = {
       "text": body
     };
@@ -138,8 +136,6 @@ function handleMessage(sender_psid, received_message) {
       }
     
    }, function(error,response,body,result){
-    var jey = JSON.parse(body);
-    var id = jey.cookie; 
     response = {
       "text": body
     };
