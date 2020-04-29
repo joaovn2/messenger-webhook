@@ -126,12 +126,6 @@ function handleMessage(sender_psid, received_message) {
     
 
     callSendAPI(sender_psid, global.result);  
-    request.del({
-    url:"http://754f5654.ngrok.io/rest/v1/vlans",
-    "sessionId":id   
-   },function (error,response,body,result,id){
-  console.log(error)
-    });
     });
     }
     if(received_message.text == "off")
@@ -153,12 +147,6 @@ function handleMessage(sender_psid, received_message) {
     
 
     callSendAPI(sender_psid, global.result);  
-    request.del({
-    url:"http://754f5654.ngrok.io/rest/v1/vlans",
-    "sessionId":id   
-   },function (error,response,body,result,id){
-  console.log(error)
-    });
     });
     }
     
