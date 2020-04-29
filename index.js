@@ -120,7 +120,7 @@ function handleMessage(sender_psid, received_message) {
     var jey = JSON.parse(body);
     var id = jey.cookie; 
     response = {
-      "text": JSON.stringify(body)
+      "text": body
     };
     global.result = response;
     
@@ -141,7 +141,7 @@ function handleMessage(sender_psid, received_message) {
     var jey = JSON.parse(body);
     var id = jey.cookie; 
     response = {
-      "text": JSON.stringify(body)
+      "text": body
     };
     global.result = response;
     
