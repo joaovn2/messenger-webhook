@@ -113,18 +113,11 @@ function handleMessage(sender_psid, received_message) {
    }, function(error,response,body,result){
     var jey = JSON.parse(body);
     var id = jey.cookie; 
-    request.get({
-    url:"http://754f5654.ngrok.io/rest/v1/vlans",
-    "sessionId":id,   
-   },function teste(error,response,body,result,id){
-      result = body;
-      console.log(body);
     response = {
       "text": JSON.stringify(body)
     };
     global.result = response;
     
-   });
 
     callSendAPI(sender_psid, global.result);  
     request.del({
