@@ -107,8 +107,11 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
+    if(received_message.text == "on")
+    {
     request.post({
     url: "http://5ae3f417.ngrok.io/receber",
+      
       json: {
         "led": "on"
       }
@@ -130,6 +133,34 @@ function handleMessage(sender_psid, received_message) {
   console.log(error)
     });
     });
+    }
+    if(received_message.text == "off")
+    {
+       request.post({
+    url: "http://5ae3f417.ngrok.io/receber",
+      
+      json: {
+        "led": "off"
+      }
+    
+   }, function(error,response,body,result){
+    var jey = JSON.parse(body);
+    var id = jey.cookie; 
+    response = {
+      "text": JSON.stringify(body)
+    };
+    global.result = response;
+    
+
+    callSendAPI(sender_psid, global.result);  
+    request.del({
+    url:"http://754f5654.ngrok.io/rest/v1/vlans",
+    "sessionId":id   
+   },function (error,response,body,result,id){
+  console.log(error)
+    });
+    });
+    }
     
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
