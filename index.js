@@ -117,6 +117,7 @@ function handleMessage(sender_psid, received_message) {
       }
     
    }, function(error,response,body,result){
+      console.log(body)
     response = {
       "text": body
     };
