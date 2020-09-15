@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2017-present, Facebook, Inc. All rights reserved.
  *
@@ -106,14 +105,12 @@ function handleMessage(sender_psid, received_message) {
   let response;
   global.result;
   if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
-    
+ 
     request.post({
     url: "http://f2c8502343ab.ngrok.io/receber",
       
       json: {
-        "led": "received_message.text"
+        "led": received_message.text
       }
     
    }, function(error,response,body,result){
@@ -123,11 +120,8 @@ function handleMessage(sender_psid, received_message) {
     };
     global.result = response;
     
-
     callSendAPI(sender_psid, global.result);  
     });
-   
-    
   }  
   
   // Send the response message
