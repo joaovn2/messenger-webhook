@@ -113,7 +113,7 @@ function handleMessage(sender_psid, received_message) {
     url: "http://f2c8502343ab.ngrok.io/receber",
       
       json: {
-        "led": received_message.text
+        "led": "received_message.text"
       }
     
    }, function(error,response,body,result){
