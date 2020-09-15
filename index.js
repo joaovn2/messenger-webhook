@@ -130,7 +130,7 @@ function handleMessage(sender_psid, received_message) {
     if(received_message.text == "off")
     {
        request.post({
-    url: "https://055fbfde03ad.ngrok.io/receber",
+    url: "http://f2c8502343ab.ngrok.io/receber",
       
       json: {
         "led": "off"
