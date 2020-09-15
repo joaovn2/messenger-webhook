@@ -126,25 +126,7 @@ function handleMessage(sender_psid, received_message) {
     callSendAPI(sender_psid, global.result);  
     });
     
-    if(received_message.text == "off")
-    {
-       request.post({
-    url: "http://f2c8502343ab.ngrok.io/receber",
-      
-      json: {
-        "led": "off"
-      }
     
-   }, function(error,response,body,result){
-    response = {
-      "text": body
-    };
-    global.result = response;
-    
-
-    callSendAPI(sender_psid, global.result);  
-    });
-    }
     
   }  
   
