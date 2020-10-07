@@ -1,8 +1,8 @@
 
 
 'use strict';
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-// Imports dependencies and set up http server
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN; //codigo de accesso a pagina do facebook 
+
 const 
   request = require('request'),
   express = require('express'),
@@ -11,32 +11,27 @@ const
   app = express().use(body_parser.json()); // creates express http server
 
 
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+app.listen(process.env.PORT || 1337, () => console.log('webhook is listening')); //setando a porta do servidor e logs de mensagem quando a comunicação for bem sucedida 
 
-// Accepts POST requests at /webhook endpoint
-app.post('/webhook', (req, res) => {  
 
-  // Parse the request body from the POST
-  let body = req.body;
+app.post('/webhook', (req, res) => {  //aceitando POST's requests no /webhook 
 
-  // Check the webhook event is from a Page subscription
-  if (body.object === 'page') {
+  let body = req.body; //analisa os body request do metodo POST
+
+  if (body.object === 'page') { //faz a checagem para ver se os eventos do webhook vem de uma subspcription page.
 
     body.entry.forEach(function(entry) {
 
-      // Gets the body of the webhook event
-      let webhook_event = entry.messaging[0];
+      let webhook_event = entry.messaging[0]; //pega o body do evento do webhook
       console.log(webhook_event);
 
 
-      // Get the sender PSID
-      let sender_psid = webhook_event.sender.id;
+      let sender_psid = webhook_event.sender.id; //adquire o PSID
       console.log('Sender ID: ' + sender_psid);
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
-      if (webhook_event.message) {
+      if (webhook_event.message) { //checa se o evento é uma mensagem ou um postback e trata ela de acordo com sua handler function
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
         
@@ -44,39 +39,38 @@ app.post('/webhook', (req, res) => {
       }
       
     });
-    // Return a '200 OK' response to all events
-    res.status(200).send('EVENT_RECEIVED');
+    
+    res.status(200).send('EVENT_RECEIVED'); //retorna um '200 OK' como response para todos os eventos
 
   } else {
-    // Return a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404);
+    
+    res.sendStatus(404); //retorna um '404 Not found' se o evento nao é de uma subscription page.
   }
 
 });
 
-// Accepts GET requests at the /webhook endpoint
+
 app.get('/webhook', (req, res) => {
   
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "zxcasdqwe";
+  const VERIFY_TOKEN = "zxcasdqwe"; //faz o update do token de vericação
   
-  // Parse params from the webhook verification request
+  // Analisa os parametros do request de verificação do webhook 
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
   let challenge = req.query['hub.challenge'];
-    
-  // Check if a token and mode were sent
-  if (mode && token) {
+  //checa de um TOKEN e um modo foi enviado  
+  if (mode && token) { 
   
-    // Check the mode and token sent are correct
+    // checa se o modo e o TOKEN são corretos
     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
       
-      // Respond with 200 OK and challenge token from the request
+      // retorna '200 OK' e faz 1 request challenge token
       console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);
     
     } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
+      // Retorna '403 Forbidden' se os tokens nao verificarem 
       res.sendStatus(403);      
     }
   }
@@ -86,11 +80,11 @@ function handleMessage(sender_psid, received_message) {
   let response;
   global.result;
   if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
+    // Cria um payload para uma mensagem básica de texto a qual vai ser adicionada para o body do seu request para enviar à API
     
-    request.post({
-    url: "http://f2c8502343ab.ngrok.io/receber",
+    
+    request.post({ //realiza um POST para o raspberry com a mensagem enviada pelo usuario do messenger
+    url: "http://f2c8502343ab.ngrok.io/receber", 
       
       json: {
         "led": received_message.text
@@ -99,7 +93,7 @@ function handleMessage(sender_psid, received_message) {
    }, function(error,response,body,result){
       console.log(body)
     response = {
-      "text": body
+      "text": body //realiza o response de acordo com o que o raspberry enviar.
     };
     global.result = response;
     
@@ -118,17 +112,17 @@ function handleMessage(sender_psid, received_message) {
 function handlePostback(sender_psid, received_postback) {
   console.log('ok')
    let response;
-  // Get the payload for the postback
+  // Pega o payload do postback
   let payload = received_postback.payload;
 
-  // Set the response based on the postback payload
+  // Seta um response de acordo com o postback payload
   
-  // Send the message to acknowledge the postback
+  // envia a mensagem para reconhecer o postback
   callSendAPI(sender_psid, response);
 }
 
 function callSendAPI(sender_psid, response) {
-  // Construct the message body
+  // construção do corpo da mensagem
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -136,7 +130,7 @@ function callSendAPI(sender_psid, response) {
     "message": response
   }
 
-  // Send the HTTP request to the Messenger Platform
+  // envia um HTTP request para a plataforma do messenger
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
