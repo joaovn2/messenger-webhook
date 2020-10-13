@@ -84,8 +84,8 @@ function handleMessage(sender_psid, received_message) {
     
     
     request.post({ //realiza um POST para o raspberry com a mensagem enviada pelo usuario do messenger
-    url: "http://f2c8502343ab.ngrok.io/receber", 
-      
+    url: "https://f8f13fcca467.ngrok.ioreceber", 
+
       json: {
         "led": received_message.text
       }
